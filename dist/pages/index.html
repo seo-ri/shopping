@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Document</title><link rel=stylesheet href=../lib/swiper/css/swiper.min.css><link rel=stylesheet href=../lib/font/iconfont.css><link rel=stylesheet href=../css/index.css></head><body><div class=header-wrap><div class=header><ul class=header-left></ul><ul class=header-right><li>登录<span>|</span></li><li>注册<span>|</span></li><li>消息通知</li><li>购物车（0）</li></ul></div></div><div class=tab><div class=log></div><ul></ul><div class=tab-right><input type=text><span class="iconfont icon-sousuo"></span></div></div><div class=nav_box><ul class=container></ul></div><div class=banner><div class=swiper-container><div class=swiper-wrapper><div class=swiper-slide><img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6bd4174b8c5aad67a64864a5716ad152.jpg?thumb=1&w=1226&h=460&f=webp&q=90" alt=""></div><div class=swiper-slide><img src=../img/banner1.jpg alt=""></div><div class=swiper-slide><img src=../img/banner2.jpg alt=""></div><div class=swiper-slide><img src=../img/banner3.jpg alt=""></div></div><div class=swiper-pagination></div><div class="swiper-button-prev prev" style=font-size:24px></div><div class=swiper-button-next></div></div><div class=banner_left><ul><li>1</li><li>2</li><li>3</li><li>3</li><li>4</li><li>4</li><li>5</li><li>6</li><li>7</li><li>6</li></ul></div></div><script src=../lib/swiper/js/swiper.min.js></script><script src=../lib/jquery/dist/jquery.min.js></script><script>var arr=["小米商城","NIUI","loT","云服务","金融","有品","小爱开放平台","企业团购","资质证照","协议规则","下载app","SelectLocation"]
+        var headerLeft=document.querySelector(".header-left")
+        var innerhtml=''
+        for(let i=0;i<arr.length;i++){
+            
+            innerhtml=innerhtml+`<li>${arr[i]}<span>|</span></li>`
+        }
+        headerLeft.innerHTML=innerhtml;
+        $('.header-right li').first().click(function(){
+            window.location.href="./login.html"
+        })
+        $('.header-right li').eq(1).click(function(){
+            window.location.href="./sign.html"
+        })
+
+        getTab()
+        function getTab(){
+            $.get('../lib/nav_top.json',function(res){
+                console.log(res)
+                 // 渲染下拉菜单一级目录
+            var str=''
+            res.forEach(item => {
+                str+=`<li>${item.name}</li>`
+            });
+            console.log(str)
+            // 填充到 .tab 里面的 ul 里面，并添加事件
+            $('.tab>ul').html(str)
+                        .on({
+                            mouseenter:()=>$('.nav_box').stop().slideDown(),
+                            mouseleave:()=>$('.nav_box').stop().slideUp()
+                        })
+           
+            .children('li')  //找到所有一级菜单下的li
+            .on('mouseover',function(){
+                const index=$(this).index()
+                const list=res[index].list  //得到移入处的数据
+                // console.log(list)
+                // 把 nav_box 渲染
+                let str=''
+                list.forEach(item=>{
+                    str+=`
+                    <li>
+                    <div>
+                    <img src="${item.list_url}" alt="">
+                    </div>
+                    <p class="title">${item.list_name}</p>
+                    <span class="price">${item.list_price}</span>
+                    </li>
+                    `
+                })
+                $('.nav_box>ul').html(str)
+            })
+
+            //给 nav_box 添加一个移入移出事件
+            $('.nav_box').on({
+                mouseenter:function(){$(this).finish().show()},
+                mouseleave:function(){$(this).finish().slideUp()}
+            })
+        })
+        }
+
+       
+//         var mySwiper = new Swiper('#swiper-container1',{
+// effect : 'fade',
+// })    
+    var mySwiper = new Swiper ('.swiper-container', {
+    // direction: 'vertical', // 垂直切换选项
+    loop: true, // 循环模式选项
+    autoplay:{
+        delay:2000
+    },
+    effect:'fade',
+    // 如果需要分页器,下面的小圆点
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    
+    // 如果需要前进后退按钮，左右切换
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    
+    // 如果需要滚动条
+    // scrollbar: {
+    //   el: '.swiper-scrollbar',
+    // },
+  })</script></body></html>

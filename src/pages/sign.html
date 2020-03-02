@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/sign.css">
+</head>
+<body>
+    <div class="box">
+        <h1 class="log"></h1>
+        <h2>账号注册</h2>
+        <!-- <form> -->
+            <input type="text" name="" id="username" placeholder="用户名"><br>
+            <input type="text" name="" id="password" placeholder="密码"><br>
+            <input type="text" name="" id="rpsd" placeholder="确认密码"><br>
+            <i style="color: #ff6700;display:block"></i><br>
+            <button>立即注册</button>
+        <!-- </form> -->
+    </div>
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $('button').click(function(){
+            var username=$('#username').val()
+            var password=$('#password').val()
+            console.log(username)
+            if(/^.{2,5}$/.test(username)){
+                if(/^\w{6,12}$/.test(password)){
+                    if($('#rpsd').val()===$('#password').val()){
+                        $.post("/sign",`username=${username}&password=${password}`,function(res){
+                            window.location.href='./login.html'
+                            console.log(res)
+                            $('i').text(' ')
+                        })
+                        
+                    }else{
+                        $('i').text('! 确定密码与密码不一致').css('margin-bottom','10px')
+                    }
+                }else{
+                    $('i').text('! 密码格式错误').css('margin-bottom','10px')
+                }
+            }else {
+                $('i').text('! 用户名格式错误').css('margin-bottom','10px')
+            }
+        
+            
+        })
+        
+
+    </script>
+</body>
+</html>
