@@ -14,7 +14,8 @@ li {list-style: none;}
 .header-right li:last-child:hover{background:white url(../img/ycar.png) no-repeat 15px center;color:#ff6700;background-size: 24px;}
 
 .tab {height:100px;}
-.log {width:55px;height:55px;background:url(https://account.xiaomi.com/static/res/7f6f2f5/account-static/respassport/acc-2014/img/mistore_logo.png) left center;float: left;margin-top:22px;}
+.log {width:48px;height:48px;background:url(https://account.xiaomi.com/static/res/7f6f2f5/account-static/respassport/acc-2014/img/mistore_logo.png) left center;float: left;margin-top:22px;}
+.log:hover{background: url(../img/logo2.png) center;}
 .tab ul {margin-left: 182px;line-height: 100px;}
 .tab ul li{float: left;padding:0 10px;text-align: center;cursor: pointer;}
 .tab input{width:245px;height:50px;border:solid #e0e0e0 1px;}
@@ -41,6 +42,12 @@ li {list-style: none;}
 .banner_left{width:234px;height:100%;position: absolute;left:0;top:0;background:rgba(105,101,101,.6);z-index: 100;padding:20px 0;box-sizing: border-box;}
 .banner_left>ul li{padding-left: 30px;height:42px;line-height:42px;color:#fff;}
 .banner_left>ul li:hover{background:#ff6700;}
+.banner_left>ul li:after{font-family: "iconfont";content:"\e62d";text-indent: 200px;}
+
+.more {position: absolute;bottom:-50px;right:20px;cursor: pointer;}
+.more span {background:#777;color:white;border-radius: 50%;width:20px;height:20px;}
+.more:hover{color:#ff6700}
+.more:hover span{background:#ff6700}
 
 
 

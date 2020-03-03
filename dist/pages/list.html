@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Document</title><link rel=stylesheet href=//at.alicdn.com/t/font_1668397_djpu8lmkhq.css><link rel=stylesheet href=../css/list.css></head><body><div class=header-wrap><div class=header><ul class=header-left></ul><ul class=header-right><li>登录<span>|</span></li><li>注册<span>|</span></li><li>消息通知</li><li>购物车（0）</li></ul></div></div><div class=tab><div class=log></div><ul><li>综合<span>|</span></li><li>销量<span>|</span></li><li>价格<i class="iconfont icon-jiantou"></i></li></ul></div><div class="goods clean"><ul class=clean></ul></div><div class=change><i class="iconfont icon-jiantouzuo"></i> <span>1</span> <span>2</span> <span>3</span> <span>4</span> <i class="iconfont icon-icon_arrow_right"></i></div><script src=../lib/jquery/dist/jquery.min.js></script><script>// 模拟一个假数据，渲染页面头部位置
+        var arr=["小米商城","NIUI","loT","云服务","金融","有品","小爱开放平台","企业团购","资质证照","协议规则","下载app","SelectLocation"]
+        var headerLeft=document.querySelector(".header-left")
+        var innerhtml=''
+        for(let i=0;i<arr.length;i++){
+            
+            innerhtml=innerhtml+`<li>${arr[i]}<span>|</span></li>`
+        }
+        headerLeft.innerHTML=innerhtml;
+
+        // 点击登录跳转登录页面
+        $('.header-right li').first().click(function(){
+            window.location.href="./login.html"
+        })
+
+        // 点击注册跳转注册页面
+        $('.header-right li').eq(1).click(function(){
+            window.location.href="./sign.html"
+        })
+
+        // 点击log跳转首页
+        $('.log').click(function(){
+            window.location.href="./index.html"
+        })
+
+// 获取商品数据
+    order()
+    function order(num=1,sort=0){
+        $.ajax({
+            url:'/order',
+            data: {
+                query: '智能家居',
+                page_index: num,
+                page_size: 20,
+                filter_tag: 0,
+                main_sort: sort,
+               
+                province_id: 2,
+                city_id: 36,
+                // sort_by: 'asc'
+                
+        },
+        dataType:'jsonp',
+        success: function(res){
+        console.log(res)
+        var str=' '
+        res.data.pc_list.forEach(function(item){
+        //    console.log( item.commodity_list[0].name)
+        //    console.log( item.commodity_list[0].price)
+        //    console.log( item.commodity_list[0].image)
+           str+=`
+           <li>
+                <img src="${ item.commodity_list[0].image}" alt="">
+                <p>${item.commodity_list[0].name}</p>
+                <span>${item.commodity_list[0].price}元</span>
+            </li>
+           `
+        })
+        $('.goods>ul').html(str)
+
+        // 点击商品跳转到详情页
+        $('.goods>ul li').click(function(){
+            console.log(this)
+        })
+
+    }
+})
+}
+// 给order函数的参数设置默认值，以免被两个不同的点击事件的传参相互影响
+var num=1
+var sort=0
+
+// 给页面设置默认进入时的样式
+$('.change span').first().addClass('changeActive')
+$('.tab>ul li').first().addClass('active')
+
+// 换页的点击事件
+$('.change span').click(function(){
+    $(this).addClass('changeActive').siblings().removeClass('changeActive')
+    order($(this).index(),sort)
+    num=$(this).index()
+})
+
+// 排序的点击事件
+$('.tab>ul li').click(function(){
+    $(this).addClass('active').siblings().removeClass('active')
+    order(num,$(this).index())
+    sort=$(this).index()
+})
+
+// 价格
+// filter_tag: 0
+// main_sort: 2
+// sort_by: asc
+// 销量
+// filter_tag: 0
+// main_sort: 1
+// 综合
+// filter_tag: 0
+// main_sort: 0</script></body></html>

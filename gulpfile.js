@@ -106,7 +106,11 @@ const severHandler=()=>{
                     {
                         source: '/sign',
                         target:'http://localhost:666/workWeek/php/sign.php'
-                    }
+                    },
+                    {
+                        source: '/order',
+                        target:'https://api.search.mi.com/search'
+                    },
                 ] 
                 }))
 }

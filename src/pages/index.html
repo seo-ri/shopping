@@ -6,7 +6,7 @@
     <title>Document</title>
     
     <link rel="stylesheet" href="../lib/swiper/css/swiper.min.css">
-    <link rel="stylesheet" href="../lib/font/iconfont.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1668397_zvxz1cgq06.css">
     <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
@@ -40,48 +40,7 @@
     </div>
     <div class="nav_box">
         <ul class="container">
-            <!-- <li>
-                <div>
-                    <img src="../img/wcar.png" alt="">
-                </div>
-                <p class="title">小米手机</p>
-                <span class="price">1999</span>
-            </li>
-            <li>
-                <div>
-                    <img src="../img/wcar.png" alt="">
-                </div>
-                <p class="title">小米手机</p>
-                <span class="price">1999</span>
-            </li>
-            <li>
-                <div>
-                    <img src="../img/wcar.png" alt="">
-                </div>
-                <p class="title">小米手机</p>
-                <span class="price">1999</span>
-            </li>
-            <li>
-                <div>
-                    <img src="../img/wcar.png" alt="">
-                </div>
-                <p class="title">小米手机</p>
-                <span class="price">1999</span>
-            </li>
-            <li>
-                <div>
-                    <img src="../img/wcar.png" alt="">
-                </div>
-                <p class="title">小米手机</p>
-                <span class="price">1999</span>
-            </li>
-            <li>
-                <div>
-                    <img src="../img/wcar.png" alt="">
-                </div>
-                <p class="title">小米手机</p>
-                <span class="price">1999</span>
-            </li> -->
+           
         </ul>
 
     </div>
@@ -125,7 +84,12 @@
                 <li>6</li>
             </ul>
         </div>
+        <div class="more">
+            查看更多
+            <span class="iconfont icon-jiantouyou"></span>
+        </div>
     </div>
+    
     
    <script src="../lib/swiper/js/swiper.min.js"></script>
     <script src="../lib/jquery/dist/jquery.min.js"></script>
@@ -217,7 +181,14 @@
     // scrollbar: {
     //   el: '.swiper-scrollbar',
     // },
-  })      
+  })
+  
+//   点击查看更多跳转列表页面
+$('.more').click(function(){
+    window.location.href="./list.html"
+})
+
+//   渲染轮播图左侧的下拉菜单
     
     </script>
     
