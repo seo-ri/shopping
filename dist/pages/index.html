@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Document</title><link rel=stylesheet href=../lib/swiper/css/swiper.min.css><link rel=stylesheet href=//at.alicdn.com/t/font_1668397_zvxz1cgq06.css><link rel=stylesheet href=../css/index.css></head><body><div class=header-wrap><div class=header><ul class=header-left></ul><ul class=header-right><li>登录<span>|</span></li><li>注册<span>|</span></li><li>消息通知</li><li>购物车（0）</li></ul></div></div><div class=tab><div class=log></div><ul></ul><div class=tab-right><input type=text><span class="iconfont icon-sousuo"></span></div></div><div class=nav_box><ul class=container></ul></div><div class=banner><div class=swiper-container><div class=swiper-wrapper><div class=swiper-slide><img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6bd4174b8c5aad67a64864a5716ad152.jpg?thumb=1&w=1226&h=460&f=webp&q=90" alt=""></div><div class=swiper-slide><img src=../img/banner1.jpg alt=""></div><div class=swiper-slide><img src=../img/banner2.jpg alt=""></div><div class=swiper-slide><img src=../img/banner3.jpg alt=""></div></div><div class=swiper-pagination></div><div class="swiper-button-prev prev" style=font-size:24px></div><div class=swiper-button-next></div></div><div class=banner_left><ul><li>1</li><li>2</li><li>3</li><li>3</li><li>4</li><li>4</li><li>5</li><li>6</li><li>7</li><li>6</li></ul></div><div class=more>查看更多 <span class="iconfont icon-jiantouyou"></span></div></div><script src=../lib/swiper/js/swiper.min.js></script><script src=../lib/jquery/dist/jquery.min.js></script><script>var arr=["小米商城","NIUI","loT","云服务","金融","有品","小爱开放平台","企业团购","资质证照","协议规则","下载app","SelectLocation"]
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Document</title><link rel=stylesheet href=../lib/swiper/css/swiper.min.css><link rel=stylesheet href=//at.alicdn.com/t/font_1668397_zvxz1cgq06.css><link rel=stylesheet href=../css/index.css></head><body><div class=header-wrap><div class=header><ul class=header-left></ul><ul class=header-right><li>登录<span>|</span></li><li>注册<span>|</span></li><li>消息通知</li><li class=shopCar>购物车</li></ul></div></div><div class=tab><div class=log></div><ul></ul><div class=tab-right><input type=text><span class="iconfont icon-sousuo"></span></div></div><div class=nav_box><ul class=container></ul></div><div class=banner><div class=swiper-container><div class=swiper-wrapper><div class=swiper-slide><img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6bd4174b8c5aad67a64864a5716ad152.jpg?thumb=1&w=1226&h=460&f=webp&q=90" alt=""></div><div class=swiper-slide><img src=../img/banner1.jpg alt=""></div><div class=swiper-slide><img src=../img/banner2.jpg alt=""></div><div class=swiper-slide><img src=../img/banner3.jpg alt=""></div></div><div class=swiper-pagination></div><div class="swiper-button-prev prev" style=font-size:24px></div><div class=swiper-button-next></div></div><div class=banner_left><ul><li>1</li><li>2</li><li>3</li><li>3</li><li>4</li><li>4</li><li>5</li><li>6</li><li>7</li><li>6</li></ul></div><div class=more>查看更多 <span class="iconfont icon-jiantouyou"></span></div></div><script src=../lib/swiper/js/swiper.min.js></script><script src=../lib/jquery/dist/jquery.min.js></script><script>var arr=["小米商城","NIUI","loT","云服务","金融","有品","小爱开放平台","企业团购","资质证照","协议规则","下载app","SelectLocation"]
         var headerLeft=document.querySelector(".header-left")
         var innerhtml=''
         for(let i=0;i<arr.length;i++){
@@ -90,6 +90,13 @@
 //   点击查看更多跳转列表页面
 $('.more').click(function(){
     window.location.href="./list.html"
+})
+
+// 购物车写入真实数据
+var local=JSON.parse(localStorage.getItem('carShop'))
+$('.shopCar').append("("+local.length+")")
+$('.shopCar').click(() => {
+    window.location.href="./car.html"
 })
 
 //   渲染轮播图左侧的下拉菜单</script></body></html>

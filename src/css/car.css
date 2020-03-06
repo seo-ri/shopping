@@ -1,0 +1,28 @@
+* {margin:0;padding:0;}
+
+li {list-style:none;}
+.go {margin:0 auto;width:1000px;position: relative;cursor: pointer;top:30px;}
+.goTo:hover {color:#ff6700;}
+.go .whether {float: right;}
+
+.box {margin:0 auto;border:solid #333 1px;width:1000px;margin-top:50px;}
+.box>p {border-bottom: solid 1px #555;padding-left: 20px;}
+.box>div:last-child{border:none;}
+
+.goodsBox {display:flex;align-items: center;padding-left: 20px;border-bottom: solid 1px #555;}
+.goodsBox img {width:100px;height:100px;margin:0 20px;}
+.goodsBox span {width:200px;text-align: center;}
+.goodsBox>p {width:300px;}
+/* .goodsBox>*{flex:1} */
+
+.footer {display:flex;align-items: center;color:#ff6700;}
+.footer p {color:#999;font-size: 12px;flex:2;}
+.footer p span {color:#ff6700;margin:0 5px;}
+.footer i {color:#ff7600;margin:0 5px;font-style: normal;font-size:24px;}
+
+.pay {height:50px;width:150px;background:#ff6700;text-align: center;line-height: 50px;color:white;margin-left: 50px;}
+
+.add,.des{padding:0 4px;cursor: pointer;}
+strong {margin:0 5px;}
+
+

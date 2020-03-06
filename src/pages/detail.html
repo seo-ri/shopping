@@ -3,9 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>详情页面</title>
+    <link rel="stylesheet" href="../css/detail.css">
 </head>
 <body>
-    <!-- 利用缓存，前端操作 -->
+    <div class="box clean">
+        <div class="imgWrap">
+            <!-- <img src="../img/banner1.jpg" alt=""> -->
+            <div class="wrap"></div>
+        </div>
+        <div class="right">
+            <!-- <h2>我是商品名</h2>
+            <span>我是价格元</span> -->
+            <div class="car">加入购物车</div>
+            <div class="bigImg"></div>
+        </div>
+    </div>
+    <!-- 利用本地存储，前端操作 -->
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        var obj={ }
+        obj=JSON.parse(localStorage.getItem('goods-detail'))
+        // console.log(obj)
+        $('.imgWrap').prepend(`<img src="${obj.image}" alt="">`)
+        var str=`
+            <h2>${obj.name}</h2>
+            <span>${obj.price}元</span>
+        `
+        $('.right').prepend(str)
+
+        $('.bigImg').html(`<img src="${obj.image}" alt="">`)
+
+        $('.car').click(function(){
+            console.log('我点击了')
+            var local=JSON.parse(localStorage.getItem('carShop'))||[]
+            // console.log(local)
+            let sim=local.some(function(item){
+                console.log(item.id,obj.id)
+                return item.id==obj.id;
+                })
+            if(sim){
+                local.find(function(item){
+                    if(item.id==obj.id){
+                        item.number++;
+                    }
+                })
+            }else {
+                local.push(obj)
+            }
+            
+            localStorage.setItem('carShop',JSON.stringify(local))
+            alert('加入购物车成功')
+        })
+
+
+        // 放大镜
+        var imgWrap=document.querySelector('.imgWrap') //小图外大盒子
+        var wrap = document.querySelector('.wrap')  //小图蒙板
+        var big=document.querySelector('.bigImg')  //放大图外盒子
+        var bigImg=document.querySelector('.bigImg>img')  //放大图图片
+        imgWrap.onmouseenter=function(e){
+            big.style.display='block'
+            wrap.style.display='block'
+            
+            let bigImgWidth=big.offsetWidth*imgWrap.offsetWidth/wrap.offsetWidth;
+            let bigImgHeight=big.offsetHeight*imgWrap.offsetHeight/wrap.offsetHeight;
+            bigImg.style.width=bigImgWidth+'px';
+            bigImg.style.height=bigImgHeight+'px';
+            // console.log(wrap.style.left)
+        
+            imgWrap.onmousemove=function(el){
+                wrap.style.left=el.pageX-imgWrap.offsetLeft-wrap.offsetWidth/2+'px'
+                wrap.style.top=el.pageY-imgWrap.offsetTop-wrap.offsetHeight/2+'px'
+                //错误  不能用offsetX 
+                // wrap.style.left=el.offsetX-wrap.offsetWidth/2+'px'
+                // wrap.style.top=el.offsetY-wrap.offsetHeight/2+'px'
+                // console.log(wrap.style.left,wrap.style.top)
+                if(wrap.offsetTop<0){
+                    wrap.style.top=0;
+                    
+                }
+                if(wrap.offsetLeft<0){
+                    wrap.style.left=0;
+                    
+                }
+                if(wrap.offsetLeft>imgWrap.offsetWidth-wrap.offsetWidth){
+                    wrap.style.left=imgWrap.offsetWidth-wrap.offsetWidth+'px';
+                    
+                }
+                if(wrap.offsetTop>imgWrap.offsetHeight-wrap.offsetHeight){
+                    wrap.style.top=imgWrap.offsetHeight-wrap.offsetHeight+'px';
+                    
+                }
+                bigImg.style.left=-parseFloat(wrap.style.left)*imgWrap.offsetWidth/wrap.offsetWidth+'px';
+                bigImg.style.top=-parseFloat(wrap.style.top)*imgWrap.offsetHeight/wrap.offsetHeight+'px';
+                
+                // console.log(bigImg.style.left,bigImg.style.top)
+            }
+           
+            
+        }
+        imgWrap.onmouseleave=function(){
+            big.style.display='none'
+            wrap.style.display='none'
+            
+        }
+
+       
+    </script>
 </body>
 </html>

@@ -17,7 +17,7 @@
                 <li>登录<span>|</span></li>
                 <li>注册<span>|</span></li>
                 <li>消息通知</li>
-                <li>购物车（0）</li>
+                <li class="shopCar">购物车</li>
             </ul>
         </div>
     </div>
@@ -94,6 +94,7 @@
    <script src="../lib/swiper/js/swiper.min.js"></script>
     <script src="../lib/jquery/dist/jquery.min.js"></script>
     <script>
+
         var arr=["小米商城","NIUI","loT","云服务","金融","有品","小爱开放平台","企业团购","资质证照","协议规则","下载app","SelectLocation"]
         var headerLeft=document.querySelector(".header-left")
         var innerhtml=''
@@ -186,6 +187,13 @@
 //   点击查看更多跳转列表页面
 $('.more').click(function(){
     window.location.href="./list.html"
+})
+
+// 购物车写入真实数据
+var local=JSON.parse(localStorage.getItem('carShop'))
+$('.shopCar').append("("+local.length+")")
+$('.shopCar').click(() => {
+    window.location.href="./car.html"
 })
 
 //   渲染轮播图左侧的下拉菜单

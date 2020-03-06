@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/car.css">
+</head>
+<body>
+    <div class="go">
+        <span class="goTo"> 继续选购</span>
+        <span class="whether">请登录</span>
+    </div>
+    <div class="box">
+        <!-- <p><input type="checkbox" value="" class="checkAll">全选</p>
+        <div class="goodsBox">
+            <input type="checkbox" name="" class="checkOne">
+            <img src="../img/wcar.png" alt="">
+            <p>简单描述</p>
+            <span>￥399</span>
+            <button class="add">+</button>
+            <strong>1</strong>
+            <button class="des">-</button>
+            <span>总价</span>
+            <button class="del">删除</button>
+        </div>
+        <div class="footer">
+            <p>共<span>10</span>件商品，已选择<span>7</span>件</p>
+            合计：<i>1100</i>元
+            <div class="pay">去结算</div>
+        </div> -->
+
+    </div>
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script>
+
+         var local=JSON.parse(localStorage.getItem('carShop'))
+         console.log(local.length)
+         if(local.length!=0){
+            addPage()
+        //渲染页面
+        function addPage(){
+            var str=''
+        var total=0; //商品总数量
+        var xuan=0;   //选中商品总数量
+        var xiaoji=0;   //选中商品总价格
+
+        // 渲染全选按钮
+        let selectAll=local.every(function(item){
+            // console.log('我执行了')
+            // console.log(item.checked)
+            return item.checked==true
+            
+        })
+        
+        str=`
+        <p><input type="checkbox" value="" class="checkAll" ${selectAll ? "checked":' '}>全选</p>
+        `
+       
+        // console.log(local)
+        local.forEach(function(item){
+           
+            str+=`
+        <div class="goodsBox">
+            <input type="checkbox" data-id="${item.id}" name="" class="checkOne" ${item.checked ? "checked":' '}>
+            <img src="${item.image}" alt="">
+            <p>${item.name}</p>
+            <span>￥${item.price}</span>
+            <button class="add" data-id="${item.id}">+</button>
+            <strong>${item.number}</strong>
+            <button class="des" data-id="${item.id}">-</button>
+            <span>￥${item.price*item.number}</span>
+            <button class="del" data-id="${item.id}">删除</button>
+        </div>
+        `
+       
+        total+=item.number;
+        if(item.checked==true){
+            xuan+=item.number
+            xiaoji+=item.price*item.number
+        }
+        })
+        
+       
+        str+=`
+        <div class="footer">
+            <p>共<span>${total}</span>件商品，已选择<span>${xuan}</span>件</p>
+            合计：<i>${xiaoji}</i>元
+            <div class="pay">去结算</div>
+        </div>
+        `
+        $('.box').html(str)
+
+
+        }
+        
+       bindEvent()
+        function bindEvent(){
+             // 全选
+        $('.box').on('click','.checkAll',function(){
+            
+            local.forEach(item => {
+                item.checked=this.checked;
+            })
+            localStorage.setItem('carShop',JSON.stringify(local))  //重新存入本地存储
+            addPage()  //重新渲染页面
+
+        })
+
+        // 单选
+        $('.box').on('click','.checkOne',function(){
+            let that=this
+            local.forEach(function(item){
+                // console.log(item.id,$(this).attr('data-id'))   //注意this指向
+                if(item.id===$(that).attr('data-id')){
+                    item.checked=!item.checked
+                }
+            })
+            localStorage.setItem('carShop',JSON.stringify(local))  //重新存入本地存储
+            addPage() 
+        })
+
+        // + 按钮
+        $('.box').on('click','.add',function(){
+            // console.log($(this).attr('data-id'))
+            let that=this
+            local.forEach(function(item){
+                // console.log(item.id,$(this).attr('data-id'))   //注意this指向
+                if(item.id===$(that).attr('data-id')){
+                    item.number++
+                }
+            })
+            localStorage.setItem('carShop',JSON.stringify(local))  //重新存入本地存储
+            addPage() 
+        })
+
+        // - 按钮
+        $('.box').on('click','.des',function(){
+            // console.log($(this).attr('data-id'))
+            let that=this
+            local.forEach(function(item){
+                // console.log(item.id,$(this).attr('data-id'))   //注意this指向
+                if(item.id===$(that).attr('data-id')){
+                    if(item.number>1){
+                        item.number--
+                    }
+                }
+            })
+            localStorage.setItem('carShop',JSON.stringify(local))  //重新存入本地存储
+            addPage() 
+        })
+
+        // 删除 按钮
+        $('.box').on('click','.del',function(){
+            // console.log($(this).attr('data-id'))
+            let that=this
+            local=local.filter(function(item){
+                // console.log(item.id,$(this).attr('data-id'))   //注意this指向
+                // console.log(index,item)
+                return item.id!=$(that).attr('data-id');
+            })
+            localStorage.setItem('carShop',JSON.stringify(local))  //重新存入本地存储
+            addPage() 
+        })
+
+
+        }
+
+         }else {
+             console.log('购物车还没有商品')
+             $('.box').html("<h2>购物车还没有商品哦，快去选购吧！</h2>")
+         }
+         $('.goTo').click(() => window.location.href="./list.html")
+
+        //  获取登录名
+        function getCookie(cookieName) {    
+            var strCookie = document.cookie;    
+            var arrCookie = strCookie.split("; ");    
+            for(var i = 0; i < arrCookie.length; i++){        
+                var arr = arrCookie[i].split("=");        
+                if(cookieName == arr[0]){           
+                     return arr[1];        
+                }   
+            }    
+             return "";
+        }
+        var user_id = getCookie("username");
+        console.log(user_id)
+        $('.whether').html(`欢迎你，${user_id}`)
+
+    </script>
+</body>
+</html>
